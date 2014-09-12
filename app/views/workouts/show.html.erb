@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @workout.name %>
@@ -14,6 +12,6 @@
 </br>
 
 <%= link_to "Play this workout", "#{workout_path(@workout)}/play" %>
-</br>
+</br></br></br>
 <%= link_to 'Edit', edit_workout_path(@workout) %> |
 <%= link_to 'Back', "#{users_path}/#{current_user.id}" %>
