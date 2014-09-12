@@ -3,4 +3,4 @@
 <%= render 'edit_form' %>
 
 <%= link_to 'Show', @workout %> |
-<%= link_to 'Back', workouts_path %>
+<%= link_to 'Back', "#{users_path}/#{current_user.id}" %>

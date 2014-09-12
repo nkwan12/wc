@@ -31,6 +31,10 @@ class WorkoutsController < ApplicationController
 
   # GET /workouts/1/edit
   def edit
+    @workout = Workout.find(params[:id])
+    unless @workout.owner == current_user
+      redirect_to :back, :alert => "Only the workout owner may edit this workout."
+    end
   end
 
   # POST /workouts
