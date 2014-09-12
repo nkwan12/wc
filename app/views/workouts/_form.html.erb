@@ -1,0 +1,57 @@
+<%= form_for(@workout) do |f| %>
+  <% if @workout.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
+
+      <ul>
+      <% @workout.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+    <table class="exercises">
+      <tr>
+        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name"} %></td>
+        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
+        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0} %></td>
+        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59} %></td>
+      </tr>
+      <tr class="actions">
+        <td><%= button_tag "Add Exercise", id: "add_exercise", type: "button" %></td>
+        <td><%= f.submit %></td>
+      </tr>
+<% end %>
+      <tr class="new_exercise hidden">
+        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name"} %></td>
+        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
+        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0} %></td>
+        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59} %></td>
+      </tr>
+    </table>
+<script>
+  $("#add_exercise").bind("click", function(e) {
+    var exer = $("tr.new_exercise").clone().removeClass("hidden new_exercise");
+    $(".actions").before(exer);
+  });
+  $(document).on("change", "#exercise__cat", function() {
+    if ($(this).val() == "Rest") {
+      $(this).parent().parent().find("td:first input").prop("readOnly", true).val("Rest");
+    } else {
+      $(this).parent().parent().find("td:first input").prop("readOnly", false).val("");
+    }
+  });
+</script>
+<style>
+  .hidden {
+    display: none;
+  }
+  input[type="number"] {
+    width:50px;
+  }
+</style>

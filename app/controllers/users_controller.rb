@@ -12,4 +12,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def workouts
+    @user = User.find(params[:id])
+    if @user == current_user
+      @workouts = @user.workouts
+      render "workouts/_index"
+    else
+      redirect_to :back, alert: "Access denied."
+    end
+  end
+
 end

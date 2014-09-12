@@ -1,0 +1,16 @@
+<script>
+  var total_mil_secs = <%= @total_mil_secs %>;
+  var ex_index = 0;
+  var exers = <%= @exers.to_json.html_safe %>;
+</script>
+<h3 id="ex_name">Click to Start!</h3>
+<%= button_tag("Start W", id: "start_workout") %>
+<%= button_tag("Continue", id: "continue", style: "display:none") %>
+<div id="timer" style="display:none">
+<span id="minutes">0</span>:<span id="seconds">00</span></br>
+<%= button_tag("Start", id: "start_timer") %>
+<%= button_tag("Pause", id: "pause_timer") %>
+</div>
+<div id="untimed">
+  <span id="reps"></span>
+</div>
