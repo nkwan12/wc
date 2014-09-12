@@ -45,7 +45,6 @@ class WorkoutsController < ApplicationController
       session[:workout_id] = @workout.id
     end 
     @workout.save
-    puts "EXERCISE PARAMS: #{exercise_params[:exercise]}"
     ex_params = exercise_params[:exercise].map do |e|
       e[:dur] = e[:dur][:minutes].to_i*60 + e[:dur][:seconds].to_i
       e[:workout_id] = @workout.id
@@ -68,8 +67,19 @@ class WorkoutsController < ApplicationController
   # PATCH/PUT /workouts/1
   # PATCH/PUT /workouts/1.json
   def update
+    @workout.update(workout_params)
+    @workout.exercises.destroy_all
+
+    ex_params = exercise_params[:exercise].map do |e|
+      e[:dur] = e[:dur][:minutes].to_i*60 + e[:dur][:seconds].to_i
+      e[:workout_id] = @workout.id
+      e
+    end
+    ex_params = ex_params[0...-1]
+    @exercises = @workout.exercises.create(ex_params)
+    
     respond_to do |format|
-      if @workout.update(workout_params)
+      if @workout.save
         format.html { redirect_to @workout, notice: 'Workout was successfully updated.' }
         format.json { render :show, status: :ok, location: @workout }
       else

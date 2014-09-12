@@ -17,13 +17,15 @@
   </div>
     <table class="exercises">
     <tbody>
+    <% @workout.exercises.each do |exercise| %>
       <tr>
         <td><img src="/arrow.jpg" style="width: 25px; height: 25px"></td>
-        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
-        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name"} %></td>
-        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0} %></td>
-        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59} %></td>
+        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), {selected: exercise.cat} %></td>
+        <td><%= text_field_tag 'exercise[][name]', exercise.name %></td>
+        <td><%= number_field_tag 'exercise[][dur][minutes]', exercise.dur/60, {size: 5, min: 0} %></td>
+        <td><%= number_field_tag 'exercise[][dur][seconds]', exercise.dur%60, {size: 5, min: 0, max: 59} %></td>
       </tr>
+    <% end %>
       <tr class="new_exercise hidden">
         <td><img src="/arrow.jpg" style="width: 25px; height: 25px"></td>
         <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
