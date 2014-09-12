@@ -1,5 +1,5 @@
+<% if @workouts %>
 <h1>Listing workouts for <%= current_user.name %></h1>
-
 <table>
   <thead>
     <tr>
@@ -21,7 +21,9 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
+<% else %>
+  <h1><%= "#{current_user.name} has no workouts yet!" %></h1>
+<% end %>
 
 <%= link_to 'New Workout', new_workout_path %>

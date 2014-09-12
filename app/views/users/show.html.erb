@@ -1,3 +1,13 @@
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+<% if !@user.workouts.empty? %>
+<p>Workouts:
+  <ul>
+  <% @user.workouts.each do |workout| %>
+    <li><%= link_to workout.name, workout %></li>
+  <% end %>
+  </ul>
+</p>
+<% end %>
+<%= link_to "New Workout", new_workout_path %>

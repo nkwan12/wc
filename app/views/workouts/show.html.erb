@@ -4,6 +4,16 @@
   <strong>Name:</strong>
   <%= @workout.name %>
 </p>
+<p>Exercises:
+  <ul>
+  <% @workout.exercises.each do |exercise| %>
+    <li><%= "#{exercise.name}, Type: #{exercise.cat}, Length: #{exercise.len}" %></li>
+  <% end %>
+  </ul>
+</p>
+</br>
 
+<%= link_to "Play this workout", "#{workout_path(@workout)}/play" %>
+</br>
 <%= link_to 'Edit', edit_workout_path(@workout) %> |
-<%= link_to 'Back', workouts_path %>
+<%= link_to 'Back', "#{users_path}/#{current_user.id}" %>
