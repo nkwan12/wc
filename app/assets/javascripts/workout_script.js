@@ -38,12 +38,12 @@ function next_ex() {
   ex_index++;
   if (ex) {
     cat = ex.cat;
-    if (cat == "timed") {
-      timed(parseInt(ex.dur), ex.name);}
+    if (cat == "Exercise") {
+      timed(parseInt(ex.dur)*1000, ex.name);}
     else if (cat == "untimed") {
       untimed(ex.name, ex.reps);}
-    else if (cat  == "rest") {
-      rest(parseInt(ex.dur));}
+    else if (cat  == "Rest") {
+      rest(parseInt(ex.dur)*1000);}
     else if (cat == "pause") {
       pause();}
   } else {

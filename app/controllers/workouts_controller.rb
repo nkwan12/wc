@@ -3,7 +3,7 @@ class WorkoutsController < ApplicationController
 
   def test
     @total_mil_secs = 10000
-    @exers = [{name: "first", cat: "timed", len: 15000}, {name: "second", cat: "rest", len: 10000}]
+    @exers = [{name: "first", cat: "timed", dur: 15}, {name: "second", cat: "rest", dur: 10}]
   end
 
   def play

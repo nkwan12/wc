@@ -14,8 +14,9 @@ function pad(t) {
 }
 
 function setTimer(milsecs) {
-  $("#minutes").text(Math.floor(milsecs/60000))
-  $("#seconds").text(pad(Math.ceil((milsecs/1000)%60)))
+  secs = Math.ceil(milsecs/1000);
+  $("#minutes").text(Math.floor(secs/60));
+  $("#seconds").text(pad(Math.ceil(secs%60)));
 }
 
 function startTimer() {
