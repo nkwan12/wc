@@ -9,7 +9,7 @@ class WorkoutsController < ApplicationController
   def play
     @workout = Workout.find(params[:id])
     redirect_to :back, alert: "Access Denied. You are not authorized to use this workout." if @workout.private and @workout.owner != current_user
-    @exers = @workout.script
+    @exers = @workout.exercises
     puts "EXERCISES: #{@exers}"
   end
 

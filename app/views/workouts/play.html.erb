@@ -1,7 +1,7 @@
 <script>
   var total_mil_secs;
   var ex_index = 0;
-  var exers = <%= @exers %>;
+  var exers = <%= @exers.to_json.html_safe %>;
 </script>
 <h3 id="ex_name">Click to Start!</h3>
 <%= button_tag("Start W", id: "start_workout") %>
