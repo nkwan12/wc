@@ -12,6 +12,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'pg'
+gem 'rails_12factor'
 #gem 'therubyracer', :platform=>:ruby
 group :development do
   gem 'better_errors'
