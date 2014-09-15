@@ -1,8 +1,7 @@
 function timed(len, name) {
   $("#untimed").hide();
   $("#ex_name").text(name);
-  $("#timer").removeClass("rest");
-  $("#timer").addClass("timed");
+  $(body).css("background-color", "green")
   $("#timer").show()
   total_mil_secs = len;
   setTimer(len);
@@ -13,14 +12,15 @@ function untimed(name, reps) {
   $("#timer").hide();
   $("#ex_name").text(name);
   $("#reps").text(reps);
+  $(body).css("background-color", "green")
   $("#untimed").show();
 }
 
 function rest(len) {
   $("#untimed").hide();
   $("#ex_name").text("Rest");
-  $("#timer").addClass("rest");
-  $("#timer").removeClass("timed");
+  $(body).css("background-color", "blue")
+  $("#timer").show()
   total_mil_secs = len;
   setTimer(len);
   startTimer();

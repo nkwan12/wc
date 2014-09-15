@@ -9,8 +9,7 @@ class WorkoutsController < ApplicationController
   def play
     @workout = Workout.find(params[:id])
     redirect_to :back, alert: "Access Denied. You are not authorized to use this workout." if @workout.private and @workout.owner != current_user
-    @exers = @workout.exercises
-    puts "EXERCISES: #{@exers}"
+    @exers = @workout.exercises.select("cat, dur, name")
   end
 
   # GET /workouts
@@ -32,7 +31,7 @@ class WorkoutsController < ApplicationController
   # GET /workouts/1/edit
   def edit
     @workout = Workout.find(params[:id])
-    unless @workout.owner == current_user
+    unless @workout.owner == current_user or @workout.owner == temp_user
       redirect_to :back, :alert => "Only the workout owner may edit this workout."
     end
   end
@@ -98,7 +97,7 @@ class WorkoutsController < ApplicationController
   def destroy
     @workout.destroy
     respond_to do |format|
-      format.html { redirect_to workouts_url, notice: 'Workout was successfully destroyed.' }
+      format.html { redirect_to "/users/#{current_user.id}", notice: 'Workout was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -111,7 +110,7 @@ class WorkoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def workout_params
-      params.require(:workout).permit(:name)
+      params.require(:workout).permit(:name, :private)
     end
 
     def exercise_params

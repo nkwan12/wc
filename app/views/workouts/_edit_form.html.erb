@@ -15,6 +15,10 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <div class="field">
+    <%= f.label :private %>
+    <%= f.check_box :private %>
+  </div>
     <table class="exercises">
     <tbody>
     <% @workout.exercises.each do |exercise| %>

@@ -2,6 +2,9 @@
   <strong>Name:</strong>
   <%= @workout.name %>
 </p>
+<% if @workout.private %>
+<p>This is a private workout.</p>
+<% end %>
 <p>Exercises:
   <ul>
   <% @workout.exercises.each do |exercise| %>
@@ -13,5 +16,4 @@
 
 <%= link_to "Play this workout", "#{workout_path(@workout)}/play" %>
 </br></br></br>
-<%= link_to 'Edit', edit_workout_path(@workout) %> |
-<%= link_to 'Back', "#{users_path}/#{current_user.id}" %>
+<%= link_to 'Edit', edit_workout_path(@workout) %>

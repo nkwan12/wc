@@ -15,6 +15,12 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+  <% if user_signed_in? %>
+  <div class="field">
+    <%= f.label :private %>
+    <%= f.check_box :private %>
+  </div>
+  <% end %>
     <table class="exercises">
     <tbody>
       <tr>
