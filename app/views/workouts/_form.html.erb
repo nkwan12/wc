@@ -24,14 +24,22 @@
     <table class="exercises">
     <tbody>
       <tr>
-        <td><img src="/arrow.jpg" style="width: 25px; height: 25px"></td>
-        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
-        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name"} %></td>
-        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0} %></td>
-        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59} %></td>
+        <div class="input-group">
+        <td><span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span></td>
+        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %></td>
+        </div>
+        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %></td>
+        <div class="input-group">
+        <td><span class="input-group-addon">Minutes:</span></td>
+        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %></td>
+        </div>
+        <div class="input-group">
+        <td><span class="input-group-addon">Seconds:</span></td>
+        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %></td>
+        </div>
       </tr>
       <tr class="new_exercise hidden">
-        <td><img src="/arrow.jpg" style="width: 25px; height: 25px"></td>
+        <td><span class="glyphicon glyphicon-arrow-right"></span></td>
         <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
         <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name"} %></td>
         <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0} %></td>
@@ -39,8 +47,8 @@
       </tr>
     </tbody>
     </table>
-    <%= button_tag "Add Exercise", id: "add_exercise", type: "button" %>
-    <%= f.submit %>
+    <%= button_tag "Add Exercise", id: "add_exercise", class: "btn btn-default btn-sm" %>
+    <%= f.submit class: "btn btn-default btn-sm" %>
 <% end %>
 <script>
   $("#add_exercise").bind("click", function(e) {
