@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   private
 
   def temp_user
-    return User.find(4)
+    return User.where("email like ?", "")[0]
   end
 end

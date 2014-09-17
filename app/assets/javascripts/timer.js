@@ -28,8 +28,10 @@ function stopTimer() {
 }
 
 $(document).on("click", "#start_timer", function() {
+  $("body").css("background-color", "green");
   timer = window.setInterval(decrement, 100);
 });
 $(document).on("click", "#pause_timer", function() {
+  $("body").css("background-color", "blue");
   window.clearInterval(timer);
 });
