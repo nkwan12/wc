@@ -21,48 +21,62 @@
     <%= f.check_box :private %>
   </div>
   <% end %>
-    <table class="exercises">
-    <tbody>
-      <tr>
-        <div class="input-group">
-        <td><span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span></td>
-        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %></td>
+    <div class="exercises">
+      <div class="form-inline row">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
+            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %>
+          </div>
+          <div class="input-group">
+          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Minutes:</span>
+            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Seconds:</span>
+            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %>
+          </div>
         </div>
-        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %></td>
-        <div class="input-group">
-        <td><span class="input-group-addon">Minutes:</span></td>
-        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %></td>
+      </div>
+      <div class="form-inline new_exercise hidden row">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
+            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %>
+          </div>
+          <div class="input-group">
+          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Minutes:</span>
+            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">Seconds:</span>
+            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %>
+          </div>
         </div>
-        <div class="input-group">
-        <td><span class="input-group-addon">Seconds:</span></td>
-        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %></td>
-        </div>
-      </tr>
-      <tr class="new_exercise hidden">
-        <td><span class="glyphicon glyphicon-arrow-right"></span></td>
-        <td><%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ) %></td>
-        <td><%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name"} %></td>
-        <td><%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0} %></td>
-        <td><%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59} %></td>
-      </tr>
-    </tbody>
-    </table>
-    <%= button_tag "Add Exercise", id: "add_exercise", class: "btn btn-default btn-sm" %>
+      </div>
+    </div>
+    <%= button_tag "Add Exercise", id: "add_exercise", class: "btn btn-default btn-sm", type: "button" %>
     <%= f.submit class: "btn btn-default btn-sm" %>
 <% end %>
 <script>
   $("#add_exercise").bind("click", function(e) {
-    var exer = $("tr.new_exercise").clone().removeClass("hidden new_exercise");
+    var exer = $(".new_exercise").clone().removeClass("hidden new_exercise");
     $(".new_exercise").before(exer);
   });
   $(document).on("change", "#exercise__cat", function() {
     if ($(this).val() == "Rest") {
-      $(this).parent().next("td").find("input").prop("readOnly", true).val("Rest");
+      $(this).parent().next("div").find("input").prop("readOnly", true).val("Rest");
     } else {
-      $(this).parent().next("td").find("input").prop("readOnly", false).val("");
+      $(this).parent().next("div").find("input").prop("readOnly", false).val("");
     }
   });
-  $(".exercises tbody").sortable();
+  $(".exercises").sortable();
 </script>
 <style>
   .hidden {
