@@ -41,33 +41,33 @@
           </div>
         </div>
       </div>
-      <div class="form-inline new_exercise hidden row">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
-            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %>
-          </div>
-          <div class="input-group">
-          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %>
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">Minutes:</span>
-            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %>
-          </div>
-          <div class="input-group">
-            <span class="input-group-addon">Seconds:</span>
-            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %>
-          </div>
-        </div>
-      </div>
     </div>
     <%= button_tag "Add Exercise", id: "add_exercise", class: "btn btn-default btn-sm", type: "button" %>
     <%= f.submit class: "btn btn-default btn-sm" %>
 <% end %>
+<div class="form-inline new_exercise hidden row">
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
+      <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %>
+    </div>
+    <div class="input-group">
+    <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon">Minutes:</span>
+      <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon">Seconds:</span>
+      <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %>
+    </div>
+  </div>
+</div>
 <script>
   $("#add_exercise").bind("click", function(e) {
     var exer = $(".new_exercise").clone().removeClass("hidden new_exercise");
-    $(".new_exercise").before(exer);
+    $(".exercises").append(exer);
   });
   $(document).on("change", "#exercise__cat", function() {
     if ($(this).val() == "Rest") {

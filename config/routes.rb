@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   get "/users/(:id)/workouts", to: "users#workouts"
+
+  post "/authorize", to: "authorization#authorize"
 end

@@ -15,12 +15,18 @@ class WorkoutsController < ApplicationController
   # GET /workouts
   # GET /workouts.json
   def index
+    unless current_user.admin? 
+      redirect_to :back, :alert => "You are not authorized to view this page."
+    end
     @workouts = Workout.all
   end
 
   # GET /workouts/1
   # GET /workouts/1.json
   def show
+    if @workout.private and @workout.owner != current_user
+      redirect_to :back, alert: "Private workout, access denied."
+    end
   end
 
   # GET /workouts/new
@@ -53,7 +59,6 @@ class WorkoutsController < ApplicationController
       e[:workout_id] = @workout.id
       e
     end
-    ex_params = ex_params[0...-1]
     @exercises = @workout.exercises.create(ex_params)
 
     respond_to do |format|
