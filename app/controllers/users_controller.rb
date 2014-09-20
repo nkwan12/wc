@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user == current_user
       @workouts = @user.workouts
+      @workouts = @workouts.select("id, name, private, num_exercises")
       respond_to do |format|
         format.html { render "workouts/_index" }
         format.json { render json: @workouts, status: 200 }
