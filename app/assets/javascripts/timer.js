@@ -39,7 +39,4 @@ $(document).on("click", "#pause_timer", function() {
   stopTimer();
 });
 
-$(window).unload(function() {
-  stopTimer();
-  alert("Are you sure?");
-});
+window.onbeforeunload = stopTimer;
