@@ -1,9 +1,10 @@
 var timer;
+var startTime;
 
 var decrement = function() {
   total_mil_secs -= 100;
   setTimer(total_mil_secs);
-  if (total_mil_secs == 0) {
+  if (total_mil_secs <= 0) {
     window.clearInterval(timer);
     next_ex();
   }
@@ -29,6 +30,7 @@ function stopTimer() {
 
 $(document).on("click", "#start_timer", function() {
   $("body").css("background-color", "green");
+  startTime = Date.now();
   timer = window.setInterval(decrement, 100);
 });
 $(document).on("click", "#pause_timer", function() {

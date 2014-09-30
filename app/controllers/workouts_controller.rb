@@ -27,6 +27,11 @@ class WorkoutsController < ApplicationController
     if @workout.private and @workout.owner != current_user
       redirect_to :back, alert: "Private workout, access denied."
     end
+
+    respond_to do |format|
+      format.json { render json: {workout: @workout, exercises: @workout.exercises.select("id, name, dur, cat")}, status: 200 }
+      format.html
+    end
   end
 
   # GET /workouts/new
@@ -64,10 +69,10 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       if @workout.save
         format.html { redirect_to @workout, notice: "Workout was successfully created" }
-        format.json { render :show, status: "created", location: @workout }
+        format.json { render json: {workoutId: @workout.id}, status: 200 }
       else
         format.html { render :new }
-        format.json { render json: @workout.errors, status: :unprocessable_entity }
+        format.json { render json: @workout.errors, status: 500 }
       end
     end
   end

@@ -7,12 +7,16 @@ class User < ActiveRecord::Base
   has_many :workout_ownerships
   has_many :owned_workouts, through: :workout_ownerships, source: :workout
 
-  private
-
   def generate_token
     self.token = "#{self.id}:#{SecureRandom.hex}"
     self.token_expr = DateTime.now + 60.days
     self.save
     return self.token
+  end
+
+  def revoke_token
+    self.token = nil
+    self.token_expr = nil
+    return self.save
   end
 end

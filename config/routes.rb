@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   get "/users/(:id)/workouts", to: "users#workouts"
+  match "/users/(:id)/workouts", to: "cors_preflight#options", via: [:OPTIONS]
+  match "/workouts/(:id)", to: "cors_preflight#options", via: [:OPTIONS]
 
-  post "/authorize", to: "authorization#authorize"
+  match "/authorization/(:action)", to: "authorization#(:action)", via: [:OPTIONS]
+  post "authorization/authorize"
+  get "authorization/revoke"
+  get "authorization/check_validity"
 end
