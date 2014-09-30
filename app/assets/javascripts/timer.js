@@ -21,6 +21,7 @@ function setTimer(milsecs) {
 }
 
 function startTimer() {
+  window.clearInterval(timer);
   timer = window.setInterval(decrement, 100);
 }
 
@@ -31,11 +32,11 @@ function stopTimer() {
 $(document).on("click", "#start_timer", function() {
   $("body").css("background-color", "green");
   startTime = Date.now();
-  timer = window.setInterval(decrement, 100);
+  startTimer();
 });
 $(document).on("click", "#pause_timer", function() {
   $("body").css("background-color", "blue");
-  window.clearInterval(timer);
+  stopTimer();
 });
 
-window.onbeforeunload = clearInterval(timer);
+window.onbeforeunload = stopTimer();
