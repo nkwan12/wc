@@ -5,7 +5,7 @@ class Workout < ActiveRecord::Base
   has_one :workout_ownership
   has_one :owner, through: :workout_ownership, source: :user 
 
-  def script()
+  def script
     return self.exercises.map {|e| e.to_json.html_safe}
   end
 
