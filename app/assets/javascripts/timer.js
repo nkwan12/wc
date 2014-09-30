@@ -37,3 +37,5 @@ $(document).on("click", "#pause_timer", function() {
   $("body").css("background-color", "blue");
   window.clearInterval(timer);
 });
+
+window.onbeforeunload = clearInterval(timer);
