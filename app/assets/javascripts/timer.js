@@ -27,6 +27,7 @@ function startTimer() {
 
 function stopTimer() {
   window.clearInterval(timer);
+  console.log("stopping timer");
 }
 
 $(document).on("click", "#start_timer", function() {
@@ -38,5 +39,3 @@ $(document).on("click", "#pause_timer", function() {
   $("body").css("background-color", "blue");
   stopTimer();
 });
-
-window.onbeforeunload = stopTimer;

@@ -15,8 +15,8 @@ class WorkoutsController < ApplicationController
   # GET /workouts
   # GET /workouts.json
   def index
-    unless current_user.admin? 
-      redirect_to :back, :alert => "You are not authorized to view this page."
+    unless current_user and current_user.admin? 
+      redirect_to "/", :alert => "Access Denied."
     end
     @workouts = Workout.all
   end
@@ -80,6 +80,10 @@ class WorkoutsController < ApplicationController
   # PATCH/PUT /workouts/1
   # PATCH/PUT /workouts/1.json
   def update
+    owner = @workout.owner
+    unless owner == current_user or owner == temp_user
+      redirect_to "/", alert: "Permission Denied."
+    end
     @workout.update(workout_params)
     @workout.exercises.destroy_all
 
@@ -94,7 +98,7 @@ class WorkoutsController < ApplicationController
     respond_to do |format|
       if @workout.save
         format.html { redirect_to @workout, notice: 'Workout was successfully updated.' }
-        format.json { render :show, status: :ok, location: @workout }
+        format.json { render json: {workoutId: @workout.id}, status: 200 }
       else
         format.html { render :edit }
         format.json { render json: @workout.errors, status: :unprocessable_entity }
@@ -105,9 +109,13 @@ class WorkoutsController < ApplicationController
   # DELETE /workouts/1
   # DELETE /workouts/1.json
   def destroy
+    owner = @workout.owner
+    unless current_user and (owner == current_user or current_user.admin?)
+      redirect_to "/", alert: "Permission Denied."
+    end
     @workout.destroy
     respond_to do |format|
-      format.html { redirect_to "/users/#{current_user.id}", notice: 'Workout was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Workout was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
