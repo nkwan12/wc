@@ -92,7 +92,6 @@ class WorkoutsController < ApplicationController
       e[:workout_id] = @workout.id
       e
     end
-    ex_params = ex_params[0...-1]
     @exercises = @workout.exercises.create(ex_params)
     
     respond_to do |format|
