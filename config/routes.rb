@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   match "/workouts/(:id)", to: "cors_preflight#options", via: [:OPTIONS]
 
   match "/authorization/(:action)", to: "authorization#(:action)", via: [:OPTIONS]
+  post "authorization/new_user"
   post "authorization/authorize"
   get "authorization/revoke"
   get "authorization/check_validity"

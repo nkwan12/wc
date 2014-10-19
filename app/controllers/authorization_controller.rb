@@ -42,4 +42,26 @@ class AuthorizationController < ApplicationController
     end
   end
 
+  def new_user
+    user = User.find_by_email(user_params[:email])
+    if user
+      respond_to do |format|
+        format.json { render json: nil, status: 409 }
+      end
+    else
+      user = User.new({email: user_params[:email]})
+      user.password = user_params[:password]
+      user.password_confirmation = user_params[:password]
+      user.confirm!
+      respond_to do |format|
+        format.json { render json: {authToken: user.generate_token, userId: user.id}, status: 200 }
+      end
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password)
+  end
 end
