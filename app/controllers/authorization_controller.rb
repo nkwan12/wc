@@ -1,4 +1,5 @@
 class AuthorizationController < ApplicationController
+  skip_before_filter :authenticate_from_token!
 
   def authorize
     user_params = params[:user]
