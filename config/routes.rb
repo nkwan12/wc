@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   match "/authorization/(:action)", to: "authorization#(:action)", via: [:OPTIONS]
   post "authorization/new_user"
   post "authorization/authorize"
+  post "authorization/reset_password"
   get "authorization/revoke"
   get "authorization/check_validity"
 end

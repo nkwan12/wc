@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_from_token!
     token = request.authorization()
-    unless token.nil? or (%w(null, undefined).include? token)
+    unless token.nil? or (%w(null undefined).include? token)
       user_id = token.split(":")[0].to_i
       user = User.find(user_id)
       if user && Devise.secure_compare(user.token, token) && DateTime.now < user.token_expr

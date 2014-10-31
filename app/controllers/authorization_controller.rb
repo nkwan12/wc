@@ -60,6 +60,19 @@ class AuthorizationController < ApplicationController
     end
   end
 
+  def reset_password
+    user = User.find_by_email(user_params[:email])
+    status = 204
+    if user
+      user.send_password_reset_instructions
+    else
+      status = 404
+    end
+    respond_to do |format|
+      format.json { render json: nil, status: status }
+    end
+  end
+
   private
 
   def user_params
