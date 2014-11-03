@@ -64,7 +64,7 @@ class AuthorizationController < ApplicationController
     user = User.find_by_email(user_params[:email])
     status = 204
     if user
-      user.send_password_reset_instructions
+      user.send_reset_password_instructions
     else
       status = 404
     end
