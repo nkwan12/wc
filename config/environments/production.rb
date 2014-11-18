@@ -85,6 +85,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sendmail #:smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true 
+  ActionMailer::Base.default from: "\"WC Info\" <info@ec2-54-68-194-217.us-west-2.compute.amazonaws.com>"
 
 
   # Disable automatic flushing of the log to improve performance.
