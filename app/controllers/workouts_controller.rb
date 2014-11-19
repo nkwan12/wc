@@ -32,6 +32,7 @@ class WorkoutsController < ApplicationController
   # GET /workouts/new
   def new
     @workout = Workout.new
+    @workout.exercises = [Exercise.new]
   end
 
   # GET /workouts/1/edit

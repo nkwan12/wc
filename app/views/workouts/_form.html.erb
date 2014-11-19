@@ -22,25 +22,27 @@
   </div>
   <% end %>
     <div class="exercises">
+      <% @workout.exercises.each do |exercise| %>
       <div class="form-inline row">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
-            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %>
+            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"], exercise.cat ), class: "form-control" %>
           </div>
           <div class="input-group">
-          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %>
+          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control", value: exercise.name, readonly: (exercise.name == "Rest")} %>
           </div>
           <div class="input-group">
             <span class="input-group-addon">Minutes:</span>
-            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %>
+            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control", value: ((0 if exercise.dur == nil) ||(exercise.dur / 60))} %>
           </div>
           <div class="input-group">
             <span class="input-group-addon">Seconds:</span>
-            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %>
+            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control", value: ((0 if exercise.dur == nil) || (exercise.dur % 60))} %>
           </div>
         </div>
       </div>
+      <% end %>
     </div>
     <%= button_tag "Add Exercise", id: "add_exercise", class: "btn btn-default btn-sm", type: "button" %>
     <%= f.submit class: "btn btn-default btn-sm" %>
