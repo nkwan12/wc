@@ -42,7 +42,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   # Send email in development mode?
   config.action_mailer.perform_deliveries = true
-  ActionMailer::Base.default from: "\"WC Info\" <info@ec2-54-68-194-217.us-west-2.compute.amazonaws.com>"
+  ActionMailer::Base.default from: "\"The KRonoTrainer Team\" <info@KRonoTrainer.com>"
 
 
   # Adds additional error checking when serving assets at runtime.
