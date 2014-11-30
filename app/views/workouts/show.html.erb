@@ -5,7 +5,6 @@
   <% @workout.exercises.each do |exercise| %>
     <div class="row padding-left">
       <div class="list-group-item col-md-4 <%="#{exercise.cat.downcase}-list"%>"><%= exercise.name %></div>
-      <div class="list-group-item col-md-2 <%="#{exercise.cat.downcase}-list"%>"><%= exercise.cat %></div>
       <div class="list-group-item col-md-2 <%="#{exercise.cat.downcase}-list"%>"><%= exercise.len %></div>
     </div>
   <% end %>
