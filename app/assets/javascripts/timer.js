@@ -27,7 +27,6 @@ function startTimer() {
 
 function stopTimer() {
   window.clearInterval(timer);
-  console.log("stopping timer");
 }
 
 $(document).on("click", "#start_timer", function() {

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  resources :exercises
-
-  resources :workouts
-  get "/workouts/(:id)/play", to: "workouts#play"
+  resources :workouts do
+    member do
+      get "play"
+    end
+  end
 
   get "/test", to: "workouts#test"
 

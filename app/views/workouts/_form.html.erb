@@ -1,89 +1,76 @@
-<%= form_for(@workout) do |f| %>
-  <% if @workout.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@workout.errors.count, "error") %> prohibited this workout from being saved:</h2>
-
-      <ul>
-      <% @workout.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for(@workout, html: {class: "workout-form", role: "form"}) do |f| %>
+  <div class="alert alert-danger fade in" style="display: none;">
+    <button type="button" class="close" aria-hidden="true">&times;</button>
+    <p class="alert-msg"></p>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="input-group">
+        <span class="input-group-addon">Workout Name</span>
+        <%= f.text_field :name, class: "form-control workout-name" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
   </div>
-  <% if user_signed_in? %>
-  <div class="field">
-    <%= f.label :private %>
-    <%= f.check_box :private %>
-  </div>
-  <% end %>
+  <br />
     <div class="exercises">
       <% @workout.exercises.each do |exercise| %>
-      <div class="form-inline row">
+      <div class="form-inline row exercise">
+        <div class="col-md-9">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
-            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"], exercise.cat ), class: "form-control" %>
+            <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"], exercise.cat ), class: "form-control exercise-cat" %>
           </div>
           <div class="input-group">
-          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control", value: exercise.name, readonly: (exercise.name == "Rest")} %>
+          <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control exercise-name", value: exercise.name, readonly: (exercise.name == "Rest")} %>
           </div>
           <div class="input-group">
             <span class="input-group-addon">Minutes:</span>
-            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control", value: ((0 if exercise.dur == nil) ||(exercise.dur / 60))} %>
+            <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control dur-minutes", value: ((0 if exercise.dur == nil) ||(exercise.dur / 60))} %>
           </div>
           <div class="input-group">
             <span class="input-group-addon">Seconds:</span>
-            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control", value: ((0 if exercise.dur == nil) || (exercise.dur % 60))} %>
+            <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control dur-seconds", value: ((0 if exercise.dur == nil) || (exercise.dur % 60))} %>
           </div>
+          <div class="remove-exercise input-group"><button class="button btn-danger btn-sm" type="button"><span class="glyphicon glyphicon-remove"></span></button></div>
+        </div>
         </div>
       </div>
       <% end %>
     </div>
-    <%= button_tag "Add Exercise", id: "add_exercise", class: "btn btn-default btn-sm", type: "button" %>
-    <%= f.submit class: "btn btn-default btn-sm" %>
+    <br />
+    <div class="row">
+      <div class="col-md-2">
+        <%= button_tag "Add Exercise", class: "add-exercise btn btn-default btn-sm btn-block", type: "button" %>
+      </div>
+      <div class="col-md-2">
+        <%= button_tag "Save Workout", class: "btn btn-default btn-sm btn-block submit-workout", type: "button" %>
+      </div>
+    </div>
 <% end %>
 <div class="form-inline new_exercise hidden row">
+  <div class="col-md-9">
   <div class="form-group">
     <div class="input-group">
       <span class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></span>
       <%= select_tag "exercise[][cat]", options_for_select( ["Exercise", "Rest"] ), class: "form-control" %>
     </div>
     <div class="input-group">
-    <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control"} %>
+    <%= text_field_tag 'exercise[][name]', nil, {placeholder: "Exercise Name", class: "form-control exercise-name"} %>
     </div>
     <div class="input-group">
       <span class="input-group-addon">Minutes:</span>
-      <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control"} %>
+      <%= number_field_tag 'exercise[][dur][minutes]', 0, {size: 5, min: 0, class: "form-control dur-minutes"} %>
     </div>
     <div class="input-group">
       <span class="input-group-addon">Seconds:</span>
-      <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control"} %>
+      <%= number_field_tag 'exercise[][dur][seconds]', 0, {size: 5, min: 0, max: 59, class: "form-control dur-seconds"} %>
     </div>
+    <div class="remove-exercise input-group"><button class="button btn-danger btn-sm" type="button"><span class="glyphicon glyphicon-remove"></span></button></div>
+  </div>
   </div>
 </div>
-<script>
-  $("#add_exercise").bind("click", function(e) {
-    var exer = $(".new_exercise").clone().removeClass("hidden new_exercise");
-    $(".exercises").append(exer);
-  });
-  $(document).on("change", "#exercise__cat", function() {
-    if ($(this).val() == "Rest") {
-      $(this).parent().next("div").find("input").prop("readOnly", true).val("Rest");
-    } else {
-      $(this).parent().next("div").find("input").prop("readOnly", false).val("");
-    }
-  });
-  $(".exercises").sortable();
-</script>
 <style>
-  .hidden {
-    display: none;
-  }
   input[type="number"] {
     width:50px;
   }

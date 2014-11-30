@@ -1,6 +1,8 @@
 class WorkoutsController < ApplicationController
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
-
+  
+  def test
+  end
   def play
     @workout = Workout.find(params[:id])
     redirect_to :back, alert: "Access Denied. You are not authorized to use this workout." if @workout.private and @workout.owner != current_user

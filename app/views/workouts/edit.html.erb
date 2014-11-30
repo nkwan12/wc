@@ -1,5 +1,12 @@
-<h1>Editing workout</h1>
-
-<%= render 'form' %>
-
-<%= link_to "Cancel", @workout %>
+<div class="container">
+  <div class="row">
+    <h1>Edit Workout</h1>
+  </div>
+  <%= render 'form' %>
+  <br /> 
+  <div class="row">
+    <div class="col-md-2">
+      <%= link_to "Cancel", :back, class: "btn btn-block btn-danger btn-sm cancel" %>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,6 @@ class UsersController < ApplicationController
     if @user == current_user
       @workouts = @user.workouts
       @workouts = @workouts.select("id, name, private, num_exercises")
-      puts "RESPONDING WITH: #{request.accept}"
       respond_to do |format|
         format.html { render "workouts/_index" }
         format.json { render json: {workouts: @workouts}, status: 200 }

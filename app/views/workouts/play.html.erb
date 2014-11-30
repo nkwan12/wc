@@ -15,8 +15,7 @@
   <span id="reps"></span>
 </div>
 <script>
-  window.onunload = function() {
+  $(document).on("page:change", function() {
     stopTimer();
-    console.log("leaving page...");
-  }
+  });
 </script>
