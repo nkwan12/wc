@@ -10,8 +10,8 @@
       <% @workouts.each do |workout| %>
         <div class="row">
           <a class="list-group-item col-md-6" href=<%= workout_path(workout) %>><%= workout.name %></a>
-          <a href=<%= edit_workout_path(workout) %> class="col-md-1 list-group-item btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
           <a href=<%= play_workout_path(workout) %> class="col-md-1 list-group-item btn btn-default btn-sm"><span class="glyphicon glyphicon-play"></span></a>
+          <a href=<%= edit_workout_path(workout) %> class="col-md-1 list-group-item btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span></a>
           <a href="#" data-href=<%= workout_path(workout) %> data-toggle="modal" data-target="#confirm-delete" class="col-md-1 list-group-item btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove delete"></span></a>
         </div>
       <% end %>

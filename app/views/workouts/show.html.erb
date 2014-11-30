@@ -1,19 +1,22 @@
-<p>
-  <strong>Name:</strong>
-  <%= @workout.name %>
-</p>
-<% if @workout.private %>
-<p>This is a private workout.</p>
-<% end %>
-<p>Exercises:
-  <ul>
+<div class="container">
+  <h1><%= @workout.name %></h1>
+  <br />
+  <div class="list-group">
   <% @workout.exercises.each do |exercise| %>
-    <li><%= "#{exercise.name}, Type: #{exercise.cat}, Length: #{exercise.len}" %></li>
+    <div class="row padding-left">
+      <div class="list-group-item col-md-4 <%="#{exercise.cat.downcase}-list"%>"><%= exercise.name %></div>
+      <div class="list-group-item col-md-2 <%="#{exercise.cat.downcase}-list"%>"><%= exercise.cat %></div>
+      <div class="list-group-item col-md-2 <%="#{exercise.cat.downcase}-list"%>"><%= exercise.len %></div>
+    </div>
   <% end %>
-  </ul>
-</p>
-</br>
-
-<%= link_to "Play this workout", "#{workout_path(@workout)}/play" %>
-</br></br></br>
-<%= link_to 'Edit', edit_workout_path(@workout) %>
+  </div>
+  </br>
+  <div class="row">
+    <div class="col-md-2">
+      <%= link_to "Play this workout", play_workout_path(@workout), class: "btn btn-default btn-block btn-sm dark" %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'Edit', edit_workout_path(@workout), class: "btn btn-default btn-block btn-sm dark" %>
+    </div>
+  </div>
+</div>
