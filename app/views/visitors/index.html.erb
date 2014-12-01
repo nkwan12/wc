@@ -1,7 +1,5 @@
 <% if user_signed_in? %>
 <h3>Welcome, <%= (current_user.name || current_user.email)%>!</h3></br>
-<%= link_to "My Workouts", "/users/#{current_user.id}/workouts" %></br>
-<%= link_to "New Workout", new_workout_path %>
 <% else %>
 <h3>Generic welcome message here!</h3>
 <% end %>
