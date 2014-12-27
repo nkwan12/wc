@@ -3,7 +3,8 @@ class AuthorizationController < ApplicationController
 
   def authorize
     user_params = params[:user]
-    user = User.find_by_email(user_params[:email])
+    #user = User.find_by_email(user_params[:email])
+    user = User.where("lower(email) like ?", user_params[:email].downcase).first
     data = {}
     status = 401
     if user and user.valid_password?(user_params[:password])
